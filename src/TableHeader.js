@@ -36,7 +36,7 @@ class TableHeader extends React.Component{
     return(
       <div className="table-header-wrapper">
         <div ref="container" className={containerClasses}>
-          <table className={tableClasses}>
+          <table className={tableClasses} id={this.props.tableID}>
             <thead>
               <tr ref="header">
                 {selectRowHeaderCol}

@@ -9,7 +9,8 @@
   },
   "scripts": {
     "lint": "eslint src",
-    "start": "gulp example-server"
+    "start": "gulp example-server",
+	 "deploy": "set NODE_ENV=production && webpack -p --config webpack.production.min.config.js"
   },
   "keywords": [
     "react",
