@@ -3,6 +3,7 @@ import classSet from 'classnames';
 import Const from '../Const';
 import Editor from '../Editor';
 import Notifier from '../Notification.js';
+import Switch from 'rc-switch';
 
 class ToolBar extends React.Component {
 
