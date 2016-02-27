@@ -1,6 +1,7 @@
 import React from 'react';
 import Switch from 'rc-switch';
 import 'rc-switch/assets/index.css';
+import Select from 'react-select';
 
 var Editor = function (editable, attr, format, editorClass, defaultValue) {
 
@@ -83,6 +84,11 @@ var Editor = function (editable, attr, format, editorClass, defaultValue) {
             let checked = defaultValue && defaultValue.toString() == values.split(':')[0] ? true : false;
             return (
                 <Switch className={attr.className} defaultChecked={checked}/>
+            )
+        } else if (editable.type === 'react-select') {
+            let multiOpt = typeof editable.options.multi !== 'undefined' ? editable.options.multi : false
+            return (
+                <Select className="pull-right" options={editable.options.values} multi={multiOpt} simpleValue={true}/>
             )
         } else {//process other input type. as password,url,email...
             return (

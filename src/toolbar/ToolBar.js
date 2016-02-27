@@ -36,7 +36,10 @@ class ToolBar extends React.Component {
                 tempValue = typeof column.autoValue == 'function' ? column.autoValue() : ('autovalue-' + new Date().getTime());
             } else {
                 let dom = this.refs[column.field + i];
-                tempValue = dom.value;
+                if (typeof  dom !== 'undefined')
+                    tempValue = dom.value;
+                else
+                    tempValue = true
 
                 if (column.editable && column.editable.type == 'checkbox') {
                     let values = dom.value.split(':');

@@ -412,39 +412,39 @@ class BootstrapTable extends React.Component {
         let beforePromise = this.props.options.beforeInsertRow ? this.props.options.beforeInsertRow(newObj) : newObj
 
         //execute before add row
-        if (this.props.options.beforeInsertRow) {
-            Promise.resolve(beforePromise).then((msg)=> {
-                newObj = msg
-                try {
-                    this.store.add(newObj);
-                } catch (e) {
-                    return e;
-                }
 
-                if (this.props.pagination) {
-                    //if pagination is enabled and insert row be trigger, change to last page
-                    const { sizePerPage } = this.state;
-                    const currLastPage = Math.ceil(this.store.getDataNum() / sizePerPage);
-                    result = this.store.page(currLastPage, sizePerPage).get();
-                    this.setState({
-                        data: result,
-                        currPage: currLastPage,
-                    });
-                } else {
-                    result = this.store.get();
-                    this.setState({
-                        data: result
-                    });
-                }
+        Promise.resolve(beforePromise).then((msg)=> {
+            newObj = msg
+            try {
+                this.store.add(newObj);
+            } catch (e) {
+                return e;
+            }
 
-                if (this.props.options.afterInsertRow) {
-                    this.props.options.afterInsertRow(newObj);
-                }
+            if (this.props.pagination) {
+                //if pagination is enabled and insert row be trigger, change to last page
+                const { sizePerPage } = this.state;
+                const currLastPage = Math.ceil(this.store.getDataNum() / sizePerPage);
+                result = this.store.page(currLastPage, sizePerPage).get();
+                this.setState({
+                    data: result,
+                    currPage: currLastPage,
+                });
+            } else {
+                result = this.store.get();
+                this.setState({
+                    data: result
+                });
+            }
 
-            }).then((e)=> {
-                return e
-            })
-        }
+            if (this.props.options.afterInsertRow) {
+                this.props.options.afterInsertRow(newObj);
+            }
+
+        }).then((e)=> {
+            return e
+        })
+
     }
 
     getSizePerPage() {
