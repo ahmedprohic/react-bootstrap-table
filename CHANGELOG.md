@@ -1,3 +1,26 @@
+<a name="v1.5.4"></a>
+# [v1.5.4](https://github.com/AllenFang/react-bootstrap-table/compare/v1.5.3...v1.5.4) (2016-02-27)
+### Bug fixes
+* Search optimization([07c96c8](https://github.com/AllenFang/react-bootstrap-table/commit/07c96c8d2029b73c3a1de55dbf1c88918974dbfd))
+
+### Enhancement
+* [#303](https://github.com/AllenFang/react-bootstrap-table/pull/303)([04592b0](https://github.com/AllenFang/react-bootstrap-table/commit/04592b089eb5dc63598d326ddd471c80183afc3e))
+
+### Features
+* Support mouse event on table and row([47bce92](https://github.com/AllenFang/react-bootstrap-table/commit/47bce923ee48c931b71efde9e00c859b9db2a62c))
+	* Check [example](https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/others/mouse-event-table.js)
+
+<a name="v1.5.3"></a>
+# [v1.5.3](https://github.com/AllenFang/react-bootstrap-table/compare/v1.5.2...v1.5.3) (2016-02-23)
+### Bug fixes
+* Fix [#289](https://github.com/AllenFang/react-bootstrap-table/issues/289) which happened after v1.5.2([ecf744c](https://github.com/AllenFang/react-bootstrap-table/commit/ecf744cc99a0c9416f5e2f4a923f519282b85f23))
+* Fix column-filter broken when using default value and pagination([add9ff6](https://github.com/AllenFang/react-bootstrap-table/commit/add9ff611b0ed3e0945723d45379e3379681bc0f))
+* Fix origin column filter broken after v1.5.1([b2625c0](https://github.com/AllenFang/react-bootstrap-table/commit/b2625c0c80fd05295988852ed7396fc565d2cbd3))
+* Fix the screen is still dimmed after insert row([8582ca4](https://github.com/AllenFang/react-bootstrap-table/commit/8582ca41c6c303fb71b0b1f83a3d21c5871fce42))
+
+### Enhancement
+* Move inline style for display no data text to css file([8d8553b](https://github.com/AllenFang/react-bootstrap-table/commit/8d8553b0f59136acbfb6ce90272f7a7f996170de))
+
 <a name="v1.5.2"></a>
 # [v1.5.2](https://github.com/AllenFang/react-bootstrap-table/compare/v1.5.1...v1.5.2) (2016-02-21)
 ### Bug fixes
