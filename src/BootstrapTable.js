@@ -442,7 +442,7 @@ class BootstrapTable extends React.Component {
 
         //execute before add row
 
-        Promise.resolve(beforePromise).then((msg)=> {
+        return Promise.resolve(beforePromise).then((msg)=> {
             newObj = msg
             try {
                 this.store.add(newObj);
@@ -470,8 +470,14 @@ class BootstrapTable extends React.Component {
                 this.props.options.afterInsertRow(newObj);
             }
 
-        }).then((e)=> {
-            return e
+        }).then((r)=> {
+            if (!r.ok) {
+                throw r
+            } else {
+                return r
+            }
+        }).catch((e)=> {
+            return e.json()
         })
 
     }

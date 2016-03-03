@@ -79,28 +79,40 @@ class ToolBar extends React.Component {
         if (!newObj) {//validate errors
             return;
         }
-        var msg = this.props.onAddRow(newObj);
-        if (msg) {
-            var ts = this;
-            ts.refs.notifier.notice('error', msg, "Pressed ESC can cancel");
-            ts.clearTimeout();
-            //shake form and hack prevent modal hide
-            ts.setState({shakeEditor: true, validateState: "this is hack for prevent bootstrap modal hide"});
-            //clear animate class
-            ts.timeouteClear = setTimeout(function () {
-                ts.setState({shakeEditor: false});
-            }, 300);
-        } else {
-            //reset state and hide modal hide
-            this.setState({
-                validateState: null,
-                shakeEditor: false
-            }, () => {
-                document.querySelector("." + "modal").click();
-            });
-            //reset form
-            this.refs.form.reset();
-        }
+        this.props.onAddRow(newObj).then((msg)=> {
+
+            let message = ''
+            try {
+                msg.errors.map((error)=> {
+                    message += (error.message + '. ')
+                })
+            } catch (ex) {
+                console.log(ex)
+                message += msg.toString()
+            }
+            if (msg) {
+                var ts = this;
+                ts.refs.notifier.notice('error', message, "Pressed ESC can cancel");
+                ts.clearTimeout();
+                //shake form and hack prevent modal hide
+                ts.setState({shakeEditor: true, validateState: "this is hack for prevent bootstrap modal hide"});
+                //clear animate class
+                ts.timeouteClear = setTimeout(function () {
+                    ts.setState({shakeEditor: false});
+                }, 300);
+            } else {
+                //reset state and hide modal hide
+                this.setState({
+                    validateState: null,
+                    shakeEditor: false
+                }, () => {
+                    document.querySelector("." + "modal").click();
+                });
+                //reset form
+                this.refs.form.reset();
+            }
+        });
+
     }
 
     handleShowOnlyToggle = e => {
