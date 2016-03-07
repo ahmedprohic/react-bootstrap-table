@@ -7,16 +7,16 @@ import TextFilter from './filters/Text';
 import SelectFilter from './filters/Select';
 import NumberFilter from './filters/Number';
 
-class TableHeaderColumn extends React.Component{
+class TableHeaderColumn extends React.Component {
 
   constructor(props) {
     super(props);
     this.handleFilter = this.handleFilter.bind(this);
   }
 
-  handleColumnClick(e){
-    if(!this.props.dataSort)return;
-    let order = this.props.sort == Const.SORT_DESC?Const.SORT_ASC:Const.SORT_DESC;
+  handleColumnClick(e) {
+    if (!this.props.dataSort)return;
+    let order = this.props.sort == Const.SORT_DESC ? Const.SORT_ASC : Const.SORT_DESC;
     this.props.onSort(order, this.props.dataField);
   }
 
@@ -26,33 +26,40 @@ class TableHeaderColumn extends React.Component{
 
   getFilters() {
     switch (this.props.filter.type) {
-      case Const.FILTER_TYPE.TEXT: {
-        return <TextFilter {...this.props.filter} columnName={this.props.children} filterHandler={this.handleFilter} />;
+      case Const.FILTER_TYPE.TEXT:
+      {
+        return <TextFilter {...this.props.filter} columnName={this.props.children} filterHandler={this.handleFilter}/>;
       }
-      case Const.FILTER_TYPE.SELECT: {
-        return <SelectFilter {...this.props.filter} columnName={this.props.children} filterHandler={this.handleFilter} />;
+      case Const.FILTER_TYPE.SELECT:
+      {
+        return <SelectFilter {...this.props.filter} columnName={this.props.children}
+                                                    filterHandler={this.handleFilter}/>;
       }
-      case Const.FILTER_TYPE.NUMBER: {
-        return <NumberFilter {...this.props.filter} columnName={this.props.children} filterHandler={this.handleFilter} />;
+      case Const.FILTER_TYPE.NUMBER:
+      {
+        return <NumberFilter {...this.props.filter} columnName={this.props.children}
+                                                    filterHandler={this.handleFilter}/>;
       }
-      case Const.FILTER_TYPE.DATE: {
-        return <DateFilter {...this.props.filter} columnName={this.props.children} filterHandler={this.handleFilter} />;
+      case Const.FILTER_TYPE.DATE:
+      {
+        return <DateFilter {...this.props.filter} columnName={this.props.children} filterHandler={this.handleFilter}/>;
       }
-      case Const.FILTER_TYPE.CUSTOM: {
+      case Const.FILTER_TYPE.CUSTOM:
+      {
         return this.props.filter.getElement(this.handleFilter, this.props.filter.customFilterParameters);
       }
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.refs.innerDiv.setAttribute("data-field", this.props.dataField);
   }
 
-  render(){
-    var width = this.props.width!==null?parseInt(this.props.width):null;
+  render() {
+    var width = this.props.width !== null ? parseInt(this.props.width) : null;
     var thStyle = {
       textAlign: this.props.dataAlign,
-      display: this.props.hidden?"none":null,
+      display: this.props.hidden ? "none" : null,
       width: width,
       maxWidth: width
     };
@@ -69,11 +76,11 @@ class TableHeaderColumn extends React.Component{
     );
     const sortCaret = this.props.sort ? Util.renderReactSortCaret(this.props.sort) : defaultCaret;
 
-    var classes = this.props.className+" "+(this.props.dataSort?"sort-column":"");
-    return(
+    var classes = this.props.className + " " + (this.props.dataSort ? "sort-column" : "");
+    return (
       <th ref='header-col' className={classes} style={thStyle}>
         <div ref="innerDiv" className="th-inner table-header-column"
-          onClick={this.handleColumnClick.bind(this)}>
+             onClick={this.handleColumnClick.bind(this)}>
           {this.props.children}{sortCaret}
         </div>
         {this.props.filter ? this.getFilters() : null}
@@ -96,8 +103,9 @@ TableHeaderColumn.propTypes = {
   isKey: React.PropTypes.bool,
   editable: React.PropTypes.any,
   hidden: React.PropTypes.bool,
+  hiddenInPopup: React.PropTypes.bool,
   searchable: React.PropTypes.bool,
-  className:React.PropTypes.string,
+  className: React.PropTypes.string,
   width: React.PropTypes.string,
   sortFunc: React.PropTypes.func,
   columnClassName: React.PropTypes.any,
@@ -110,7 +118,7 @@ TableHeaderColumn.propTypes = {
     options: React.PropTypes.oneOfType([
       React.PropTypes.object, // for SelectFilter
       React.PropTypes.arrayOf(React.PropTypes.number) //for NumberFilter
-        ]),
+    ]),
     numberComparators: React.PropTypes.arrayOf(React.PropTypes.string),
     emitter: React.PropTypes.object,
     placeholder: React.PropTypes.string,
@@ -127,6 +135,7 @@ TableHeaderColumn.defaultProps = {
   editable: true,
   onSort: undefined,
   hidden: false,
+  hiddenInPopup: false,
   searchable: true,
   className: "",
   width: null,

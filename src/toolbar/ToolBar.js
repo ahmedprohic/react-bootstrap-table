@@ -81,16 +81,17 @@ class ToolBar extends React.Component {
         }
         this.props.onAddRow(newObj).then((msg)=> {
 
-            let message = ''
-            try {
-                msg.errors.map((error)=> {
-                    message += (error.message + '. ')
-                })
-            } catch (ex) {
-                console.log(ex)
-                message += msg.toString()
-            }
             if (msg) {
+                let message = ''
+                try {
+                    msg.errors.map((error)=> {
+                        message += (error.message + '. ')
+                    })
+                } catch (ex) {
+                    console.log(ex)
+                    message += msg.toString()
+                }
+
                 var ts = this;
                 ts.refs.notifier.notice('error', message, "Pressed ESC can cancel");
                 ts.clearTimeout();
@@ -106,7 +107,10 @@ class ToolBar extends React.Component {
                     validateState: null,
                     shakeEditor: false
                 }, () => {
-                    document.querySelector("." + "modal").click();
+                    let m = document.querySelectorAll("." + "modal");
+                    for (let i = 0; i < m.length; i++){
+                        m[i].click()
+                    }
                 });
                 //reset form
                 this.refs.form.reset();

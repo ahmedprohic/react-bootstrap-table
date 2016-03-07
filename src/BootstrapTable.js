@@ -447,33 +447,28 @@ class BootstrapTable extends React.Component {
     this._handleAfterAddingRow(newObj);
   }
 
-    handleAddRow(newObj) {
-        let msg = null, result;
-        let beforePromise = this.props.options.beforeInsertRow ? this.props.options.beforeInsertRow(newObj) : newObj
+  handleAddRow(newObj) {
 
-        //execute before add row
+    let beforePromise = this.props.options.beforeInsertRow ? this.props.options.beforeInsertRow(newObj) : newObj
 
-        return Promise.resolve(beforePromise).then((msg)=> {
-            newObj = msg
-            try {
-                this.store.add(newObj);
-            } catch (e) {
-                return e;
-            }
+    //execute before add row
 
-          this._handleAfterAddingRow(newObj);
+    return Promise.resolve(beforePromise).then((msg)=> {
+        newObj = msg
+        try {
+            this.store.add(newObj);
+        } catch (e) {
+            return e;
+        }
 
-        }).then((r)=> {
-            if (!r.ok) {
-                throw r
-            } else {
-                return r
-            }
-        }).catch((e)=> {
-            return e.json()
-        })
+        this._handleAfterAddingRow(newObj);
 
-    }
+    }).catch((e)=> {
+        console.log("gledaj ovde")
+        console.log(e)
+        return e.json()
+    })
+  }
 
   getSizePerPage() {
     return this.state.sizePerPage;
@@ -626,6 +621,8 @@ class BootstrapTable extends React.Component {
             autoValue: props.autoValue || false,
             //for create editor, no params for column.editable() indicate that editor for new row
             editable: props.editable && (typeof props.editable === "function") ? props.editable() : props.editable,
+            //hidden in popup
+            hiddenInPopup: props.hiddenInPopup,
             format: props.dataFormat ? function(value){
               return props.dataFormat(value, null, props.formatExtraData).replace(/<.*?>/g,'');
             } : false
@@ -635,7 +632,8 @@ class BootstrapTable extends React.Component {
         columns = [{
           name: this.props.children.props.children,
           field: this.props.children.props.dataField,
-          editable: this.props.children.props.editable
+          editable: this.props.children.props.editable,
+          hiddenInPopup: this.props.children.props.hiddenInPopup
         }];
       }
       return (
