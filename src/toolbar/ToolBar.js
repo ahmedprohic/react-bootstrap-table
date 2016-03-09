@@ -275,7 +275,7 @@ class ToolBar extends React.Component {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-info" onClick={this.handleSaveBtnClick.bind(this)}>
+                            <button type="button" className="btn btn-success" onClick={this.handleSaveBtnClick.bind(this)}>
                                 Save
                             </button>
                         </div>
