@@ -154,6 +154,7 @@ class ToolBar extends React.Component {
               data-toggle="modal" data-target={'.'+modalClassName}>
         <i className="glyphicon glyphicon-plus"></i> New</button> : null;
 
+
     var deleteBtn = this.props.enableDelete ?
       <button type="button" className="btn btn-warning react-bs-table-del-btn" data-toggle="tooltip"
               data-placement="right" title="Drop selected row"
@@ -179,10 +180,15 @@ class ToolBar extends React.Component {
       <button type="button" className="btn btn-success" onClick={this.handleExportCSV.bind(this)}>
         <i className="glyphicon glyphicon-export"></i> Export to CSV</button> : null;
 
+    var customBtns = typeof this.props.customButtons !== 'undefined' ? this.props.customButtons.map((btn)=> {
+      return btn
+    }) : null
+
     return (
       <div className="row">
         <div className="col-xs-12 col-sm-6 col-md-6 col-lg-8">
           <div className="btn-group btn-group-sm" role="group">
+            {customBtns}
             {exportCSV}
             {insertBtn}
             {deleteBtn}
